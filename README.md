@@ -43,6 +43,17 @@ kind create cluster
 dapr int -k
 ```
 
+# Setup Secrets
+```sh
+
+#Setup Mssql server password to be used 
+kubectl create secret generic mssql --from-literal=SA_PASSWORD="password@1" -n evolution
+
+#AWS S3 Access for ap to use
+kubectl create secret generic access --from-literal=AWS_ACCESS_KEY="AKIAYVIT7U44J******" -n evolution
+kubectl create secret generic secret --from-literal=AWS_SECRET_KEY="Ib1GuABmPxOtDIEfeb7*****************" -n evolution
+
+```
 
 # Setup ArgoCD to deploy.
 
@@ -75,6 +86,9 @@ argocd proj get evolution -o yaml
 
 #Create Project
 argocd proj create evolution -d https://kubernetes.default.svc,mynamespace -s https://github.com/cloud-first-approach/Evolution.infra.git
+
+#Add Identity Service
+argocd proj add-source evolution https://github.com/cloud-first-approach/Evolution.Identity.git
 
 #Add more source repo for each services
 argocd proj add-source evolution https://github.com/cloud-first-approach/Evolution.Uploader.git
@@ -109,16 +123,18 @@ argocd app create evo-dev-infra --repo https://github.com/cloud-first-approach/E
 argocd app create evo-prod-infra --repo https://github.com/cloud-first-approach/Evolution.infra.git --path deploy/k8s/infra/overlays/prod --dest-server https://kubernetes.default.svc --dest-namespace evolution
 
 ```
-
-
-# Evolution.Uploader
+# Evolution.Identity
 
 ```sh
 #Manual instalation
 
 kubectl apply -k deploy/k8s/services
 
-argocd app create evo-uploader-app --repo https://github.com/cloud-first-approach/Evolution.Uploader.git --path deploy/k8s/services --dest-server https://kubernetes.default.svc --dest-namespace evolution
+#ArgoCD
+
+argocd app create evo-identity-app --repo https://github.com/cloud-first-approach/Evolution.Identity.git --path deploy/k8s/services --dest-server https://kubernetes.default.svc --dest-namespace evolution
+
+argocd app sync evo-identity-app
 
 ```
 
@@ -129,4 +145,22 @@ argocd app create evo-uploader-app --repo https://github.com/cloud-first-approac
 
 kubectl apply -k deploy/k8s/services
 
+#ArgoCD
+argocd app create evo-uploader-app --repo https://github.com/cloud-first-approach/Evolution.Uploader.git --path deploy/k8s/services --dest-server https://kubernetes.default.svc --dest-namespace evolution
+
+argocd app sync evo-uploader-app
+
+```
+
+# Evolution.Processor
+
+```sh
+#Manual instalation
+
+kubectl apply -k deploy/k8s/services
+
+#ArgoCD
+argocd app create evo-processor-app --repo https://github.com/cloud-first-approach/Evolution.Uploader.git --path deploy/k8s/services --dest-server https://kubernetes.default.svc --dest-namespace evolution
+
+argocd app sync evo-processor-app
 ```
