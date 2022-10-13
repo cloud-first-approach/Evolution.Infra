@@ -49,6 +49,8 @@ dapr init -k
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install redis bitnami/redis --set image.tag=6.2
+
+kubectl get secret --namespace default redis -o jsonpath="{.data.redis-password}" | base64 -d
 ```
 
 
