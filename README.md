@@ -50,14 +50,19 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install redis bitnami/redis --set image.tag=6.2
 
+# get dynamically genrated password
 kubectl get secret --namespace default redis -o jsonpath="{.data.redis-password}" | base64 -d
 
 # || OR
 
-# if redis/charts folder not there
+# if redis/charts folder not there one time activity
+kubectl kustomize .\deploy\k8s\infra\base\redis\charts\redis\ --enable-helm
+
+#change the values.yaml passwrord:password@1
 
 helm install redis .\deploy\k8s\infra\base\redis\charts\redis\ 
-password for redis : password@1
+#redis password for all / dapr components : password@1
+#redis url for all / dapr components : redis-master.default.svc.cluster.local:6379
 ```
 
 
@@ -74,7 +79,7 @@ kubectl create ns evolution
 #Setup Mssql server password to be used 
 kubectl create secret generic mssql --from-literal=SA_PASSWORD="password@1" -n evolution
 
-#AWS S3 Access for ap to use
+#AWS S3 Access for app to use
 kubectl create secret generic access --from-literal=AWS_ACCESS_KEY="AKIAYVIT7U44J******" -n evolution
 kubectl create secret generic secret --from-literal=AWS_SECRET_KEY="Ib1GuABmPxOtDIEfeb7*****************" -n evolution
 
@@ -156,11 +161,12 @@ argocd app sync evo-prod-infra
 ```sh
 #Manual instalation
 
-kubectl apply -k deploy/k8s/services
+# Includes dapr annotations
+kubectl apply -k deploy/k8s/identity/overlays/dev
 
 #ArgoCD
 
-argocd app create evo-identity-app --repo https://github.com/cloud-first-approach/Evolution.Identity.git --path deploy/k8s/services --dest-server https://kubernetes.default.svc --dest-namespace evolution
+argocd app create evo-identity-app --repo https://github.com/cloud-first-approach/Evolution.Identity.git --path deploy/k8s/identity/overlays/dev --dest-server https://kubernetes.default.svc --dest-namespace evolution
 
 argocd app sync evo-identity-app
 
