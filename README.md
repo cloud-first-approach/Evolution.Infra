@@ -51,6 +51,13 @@ helm repo update
 helm install redis bitnami/redis --set image.tag=6.2
 
 kubectl get secret --namespace default redis -o jsonpath="{.data.redis-password}" | base64 -d
+
+# || OR
+
+# if redis/charts folder not there
+
+helm install redis .\deploy\k8s\infra\base\redis\charts\redis\ 
+password for redis : password@1
 ```
 
 
