@@ -8,6 +8,6 @@ resources:
   - mssql/local-pvc.yaml
   - mssql/mssql-server.yaml
   - nginx/nginx.yaml
-  - dapr/app-secretstore-component.yaml
   - dapr/appsettings-configstore-component.yaml
   - dapr/login-statestore-component.yaml
+  - dapr/components/pubsub.yaml
