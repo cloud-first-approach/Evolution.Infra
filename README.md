@@ -36,16 +36,11 @@ kind version
 # Create cluster
 kind create cluster
 ```
-# Create a namespace (evolution)
-
-```sh
-kubectl create ns evolution
-```
 
 # Setup dapr in kubernetes
 
 ```sh
-dapr int -k
+dapr init -k
 ```
 
 # Setup Redis
@@ -55,6 +50,14 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install redis bitnami/redis --set image.tag=6.2
 ```
+
+
+# Create a namespace (evolution)
+
+```sh
+kubectl create ns evolution
+```
+
 
 # Setup Secrets
 ```sh
@@ -86,14 +89,17 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 # Setup Project to Run
 
 ```sh
-# login to you cluster
+# login to you cluster beore any command, username : admin
 argocd login localhost:8080
 
 argocd proj get evolution -o yaml
 
 #Create Project
-argocd proj create evolution -d https://kubernetes.default.svc,mynamespace -s https://github.com/cloud-first-approach/Evolution.infra.git
+argocd proj create evolution -d https://kubernetes.default.svc,evolution -s https://github.com/cloud-first-approach/Evolution.infra.git
+argocd proj delete evolution
 
+argocd proj allow-cluster-resource evolution * *
+argocd proj add-destination evolution https://kubernetes.default.svc,evolution
 #Add Identity Service
 argocd proj add-source evolution https://github.com/cloud-first-approach/Evolution.Identity.git
 
@@ -125,8 +131,10 @@ Delpoy using Argo cd
 ```sh
 # Start Dev Environment and sync
 argocd app create evo-dev-infra --repo https://github.com/cloud-first-approach/Evolution.infra.git --path deploy/k8s/infra/overlays/dev --dest-server https://kubernetes.default.svc --dest-namespace evolution
-
+#now sync
 argocd app sync evo-dev-infra
+#delete
+argocd app delete evo-dev-infra
 
 # Start Prod Environment and sync
 argocd app create evo-prod-infra --repo https://github.com/cloud-first-approach/Evolution.infra.git --path deploy/k8s/infra/overlays/prod --dest-server https://kubernetes.default.svc --dest-namespace evolution
