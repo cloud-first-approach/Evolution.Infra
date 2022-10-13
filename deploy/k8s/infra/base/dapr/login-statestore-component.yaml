@@ -10,7 +10,7 @@ spec:
   - name: redisHost
     value: redis-master.default.svc.cluster.local:6379
   - name: redisPassword
-    value: QPwzgHQRm7
+    value: u6WJLmwqIp
   # uncomment below for connecting to redis cache instances over TLS (ex - Azure Redis Cache)
   # - name: enableTLS
   #   value: true 
