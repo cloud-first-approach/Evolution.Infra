@@ -63,6 +63,8 @@ kubectl kustomize .\deploy\k8s\infra\base\redis\charts\redis\ --enable-helm
 helm install redis .\deploy\k8s\infra\base\redis\charts\redis\ 
 #redis password for all / dapr components : password@1
 #redis url for all / dapr components : redis-master.default.svc.cluster.local:6379
+
+helm uninstall redis
 ```
 
 
@@ -70,6 +72,8 @@ helm install redis .\deploy\k8s\infra\base\redis\charts\redis\
 
 ```sh
 kubectl create ns evolution
+
+kubectl create ns monitoring
 ```
 
 
