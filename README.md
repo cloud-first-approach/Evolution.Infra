@@ -37,13 +37,16 @@ kind version
 kind create cluster
 ```
 
-# Setup dapr in kubernetes
+# Deployment
+
+
+## Setup dapr in kubernetes
 
 ```sh
 dapr init -k
 ```
 
-# Setup Redis
+## Setup Redis
 
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
@@ -68,7 +71,7 @@ helm uninstall redis
 ```
 
 
-# Create a namespace (evolution)
+## Create a namespace (evolution)
 
 ```sh
 kubectl create ns evolution
@@ -77,7 +80,7 @@ kubectl create ns monitoring
 ```
 
 
-# Setup Secrets
+## Setup Secrets
 ```sh
 
 #Setup Mssql server password to be used 
@@ -88,8 +91,12 @@ kubectl create secret generic access --from-literal=AWS_ACCESS_KEY="AKIAYVIT7U44
 kubectl create secret generic secret --from-literal=AWS_SECRET_KEY="Ib1GuABmPxOtDIEfeb7*****************" -n evolution
 
 ```
+# Continuous Delivery
 
-# Setup ArgoCD to deploy.
+You can deploy and use `Argo CD` or `Flux` for Continuous Delivery
+
+
+## Setup Argo CD to deploy.
 
 ```sh
 kubectl create namespace argocd
@@ -104,7 +111,7 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 
 ```
-# Setup Project to Run
+## Setup Project to Run using Argo CD
 
 ```sh
 # login to you cluster beore any command, username : admin
@@ -131,6 +138,22 @@ argocd proj add-source evolution https://github.com/cloud-first-approach/Evoluti
 argocd proj remove-source <PROJECT> <REPO>
 
 ```
+
+## Setup Flux
+
+```sh
+
+kubectl create ns flux-system
+
+SET GITHUB_USER=cloud-first-approach
+
+flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/k8s/clusters/dev --personal
+# with access Token required from github
+
+flux reconcile kustomization webapp-dev --with-source
+
+```
+
 
 # Evolution.infra
 
