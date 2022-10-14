@@ -4,7 +4,7 @@ metadata:
   name: cluster-infra
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 1m0s
   path: ./deploy/K8s/infra/overlays/dev
   prune: true
   sourceRef:
