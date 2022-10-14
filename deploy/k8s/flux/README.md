@@ -6,7 +6,11 @@ kubectl create ns flux-system
 
 SET GITHUB_USER=iamsourabh-in
 
-flux bootstrap github --owner=%GITHUB_USER% --repository=cloud-first-approach/Evolution.Uploader --branch=main --path=./deploy/K8s/infra/overlays/dev --personal
+
+SET GITHUB_USER=cloud-first-approach
+
+flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/K8s/infra/overlays/dev --personal
+
 
 #setup Flux in K8 for pulling you repo for sync
 fluxctl install --git-user=iamsourabh-in --git-email=iamsourabh-in@users.noreply.github.com --git-url=git@github.com:iamsourabh-in/Evolution --git-path=deploy/K8s/infra/overlays/dev --git-branch=flux --namespace=flux-system | kubectl apply -f -

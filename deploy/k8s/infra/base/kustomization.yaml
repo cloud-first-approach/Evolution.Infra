@@ -11,4 +11,4 @@ resources:
   - dapr/appsettings-configstore-component.yaml
   - dapr/login-statestore-component.yaml
   - dapr/components/pubsub.yaml
-  - prometheus-op/0.11.0
+  #- prometheus-op/0.11.0
