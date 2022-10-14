@@ -9,7 +9,7 @@ SET GITHUB_USER=iamsourabh-in
 
 SET GITHUB_USER=cloud-first-approach
 
-flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/K8s/infra/overlays/dev --personal
+flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/K8s/cluster/dev --personal
 
 
 #setup Flux in K8 for pulling you repo for sync
