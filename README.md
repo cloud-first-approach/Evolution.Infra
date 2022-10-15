@@ -68,8 +68,21 @@ helm install redis .\deploy\k8s\infra\base\redis\charts\redis\
 #redis url for all / dapr components : redis-master.default.svc.cluster.local:6379
 
 helm uninstall redis
-```
 
+
+
+### working with redis :
+
+
+
+rdcli -h <host>(localhost) -a  -p 6379
+
+redis-cli -p 6379 
+
+MSET orderId1 "101||1" orderId2 "102||1"
+
+```
+Using the [Redis CLI](https://redis.com/blog/get-redis-cli-without-installing-redis-server/), connect to the Redis instance:
 
 ## Create a namespace (evolution)
 
@@ -88,6 +101,7 @@ kubectl create secret generic mssql --from-literal=SA_PASSWORD="password@1" -n e
 
 #AWS S3 Access for app to use
 kubectl create secret generic access --from-literal=AWS_ACCESS_KEY="AKIAYVIT7U44J******" -n evolution
+
 kubectl create secret generic secret --from-literal=AWS_SECRET_KEY="Ib1GuABmPxOtDIEfeb7*****************" -n evolution
 
 ```
@@ -147,7 +161,7 @@ kubectl create ns flux-system
 
 SET GITHUB_USER=cloud-first-approach
 
-flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/k8s/clusters/dev --personal
+flux bootstrap github --owner=%GITHUB_USER% --repository=Evolution.infra --branch=main --path=./deploy/k8s/flux/clusters/dev --personal
 # with access Token required from github
 
 flux reconcile kustomization webapp-dev --with-source
