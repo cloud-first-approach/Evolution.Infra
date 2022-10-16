@@ -4,7 +4,7 @@ metadata:
   name: infra
   namespace: evolution
 spec:
-  interval: 5m0s
+  interval: 1m0s
   path: ./deploy/k8s/flux/dev
   prune: true
   sourceRef:
