@@ -285,3 +285,13 @@ WARNING: Rolling tag detected (bitnami/redis:6.2), please note that it is strong
 
 
 
+# flagger:
+
+```sh
+
+helm upgrade -i ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --set controller.metrics.enabled=true --set controller.podAnnotations."prometheus\.io/scrape"=true --set controller.podAnnotations."prometheus\.io/port"=10254
+
+
+helm upgrade -i flagger flagger/flagger --namespace ingress-nginx --set prometheus.install=true --set meshProvider=nginx
+
+```

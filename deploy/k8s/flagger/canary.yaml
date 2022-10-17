@@ -2,18 +2,18 @@ apiVersion: flagger.app/v1beta1
 kind: Canary
 metadata:
   name: podinfo
-  namespace: test
+  namespace: evolution
   annotations:
     kuma.io/mesh: default
 spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: podinfo
+    name: identity-api-deployment
   progressDeadlineSeconds: 60
   service:
-    port: 9898
-    targetPort: 9898
+    port: 80
+    targetPort: 80
     apex:
       annotations:
         9898.service.kuma.io/protocol: "http"
