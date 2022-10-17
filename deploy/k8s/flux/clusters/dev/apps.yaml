@@ -1,15 +1,28 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
 metadata:
   name: uploader-api
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./deploy/k8s/uploader/overlays/dev
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: uploader-api
+  ref:
+    branch: main
+  secretRef:
+    name: flux-system
+  url: ssh://git@github.com/cloud-first-approach/Evolution.Uploader
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: identity-api
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: main
+  secretRef:
+    name: flux-system
+  url: ssh://git@github.com/cloud-first-approach/Evolution.Identity
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
@@ -23,3 +36,16 @@ spec:
   sourceRef:
     kind: GitRepository
     name: identity-api
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: uploader-api
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  path: ./deploy/k8s/uploader/overlays/dev
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: uploader-api
