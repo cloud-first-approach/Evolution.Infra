@@ -23,5 +23,3 @@ spec:
         name: dapr
         namespace: dapr-system
       interval: 1m
-  values:
-    replicaCount: 2
