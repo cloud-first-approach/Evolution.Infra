@@ -3,25 +3,25 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: flux-system
-  namespace: flux-system
+  name: identity-api
+  namespace: evolution
 spec:
   interval: 1m0s
   ref:
     branch: main
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/cloud-first-approach/Evolution.infra
+  url: ssh://git@github.com/cloud-first-approach/Evolution.Identity
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: dev-infra
+  name: dev-identity
   namespace: evolution
 spec:
-  interval: 10m0s
-  path: ./deploy/k8s/infra/overlays/dev
+  interval: 1m0s
+  path: ./deploy/k8s/identity/overlays/dev
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: identity-api
