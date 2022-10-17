@@ -1,8 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-bases:
-  - ../../../infra/base
-  - ../../apps
-patchesStrategicMerge:
-- ../../../infra/overlays/dev/configmap_patch.yaml
+resources:
+  - "apps.yaml"
+  - "infra.yaml"
 
