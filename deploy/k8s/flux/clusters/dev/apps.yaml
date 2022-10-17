@@ -43,6 +43,8 @@ metadata:
   name: uploader-api
   namespace: flux-system
 spec:
+  dependsOn:
+    - infra
   interval: 1m0s
   path: ./deploy/k8s/uploader/overlays/dev
   prune: true
