@@ -71,8 +71,6 @@ metadata:
   name: processor-api
   namespace: flux-system
 spec:
-  dependsOn:
-    - infra
   interval: 1m0s
   path: ./deploy/k8s/processor/overlays/dev
   prune: true
