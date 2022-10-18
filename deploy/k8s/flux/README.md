@@ -32,4 +32,10 @@ fluxctl sync --k8s-fwd-ns flux-system
 
 fluxctl policy -w default:deployment/example-deploy --tag "example-app=1.0.*"
 
+
+flux create source helm traefik --url https://helm.traefik.io/traefik --namespace traefik
+
+flux create source helm dapr --url https://dapr.github.io/helm-charts --namespace dapr-system
+
+flux create helmrelease my-dapr --chart dapr/dapr --source HelmRepository/dapr --chart-version 1.9.0 --namespace dapr-system
 ```

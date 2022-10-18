@@ -57,7 +57,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - infra
+    - name: infra
   interval: 1m0s
   path: ./deploy/k8s/uploader/overlays/dev
   prune: true
