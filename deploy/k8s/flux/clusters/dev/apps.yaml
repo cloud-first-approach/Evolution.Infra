@@ -7,6 +7,8 @@ spec:
   interval: 1m0s
   ref:
     branch: develop
+  secretRef:
+    name: flux-system
   url: ssh://git@github.com/cloud-first-approach/Evolution.Uploader
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
@@ -18,6 +20,8 @@ spec:
   interval: 1m0s
   ref:
     branch: develop
+  secretRef:
+    name: flux-system
   url: ssh://git@github.com/cloud-first-approach/Evolution.Identity
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
@@ -29,6 +33,8 @@ spec:
   interval: 1m0s
   ref:
     branch: develop
+  secretRef:
+    name: flux-system
   url: ssh://git@github.com/cloud-first-approach/Evolution.Processor
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
