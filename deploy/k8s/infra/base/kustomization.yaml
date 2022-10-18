@@ -12,4 +12,5 @@ resources:
   - dapr/appsettings-configstore-component.yaml
   - dapr/login-statestore-component.yaml
   - dapr/components/pubsub.yaml
+  - redis
   #- prometheus-op/0.11.0
