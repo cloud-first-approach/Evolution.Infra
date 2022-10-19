@@ -203,7 +203,7 @@ argocd app sync evo-prod-infra
 #Manual instalation
 
 # Includes dapr annotations
-kubectl apply -k deploy/k8s/identity/overlays/dev
+kubectl apply -k Evolution.Identity/deploy/k8s/identity/overlays/dev
 
 #ArgoCD
 
