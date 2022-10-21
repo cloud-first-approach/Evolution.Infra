@@ -82,6 +82,10 @@ kind create cluster
 
 # Deployment
 
+```sh
+# 
+.\k8s_destroy.ps1 -env "local" -includeDapr "true"
+```
 
 ## Setup dapr in kubernetes
 
