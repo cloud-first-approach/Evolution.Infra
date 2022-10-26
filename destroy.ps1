@@ -1,6 +1,6 @@
 
-param( [Parameter(Mandatory=$true)] $env)
-If ($env -eq "local") {
+param( [Parameter(Mandatory = $true)] $mode, [Parameter(Mandatory = $true)] $env)
+If ($mode -eq "local") {
     Write-Output "Destroying Processor"
     kubectl delete -k .\Evolution.Processor\deploy\k8s\processor\overlays\$env
     Write-Output "Destroying Uploader"
@@ -14,9 +14,11 @@ If ($env -eq "local") {
     Write-Output "removing dapr from k8"
     dapr uninstall -k
     Write-Output "removing redis"
-    helm uninstall redis
+    helm uninstall redis 
+    Write-Output "removing prometheus" 
+    helm uninstall prometheus -n monitoring
 }
-elseif ($env -eq "flux") {
+elseif ($mode -eq "flux") {
     Write-Output "Destroying Identity kustomization"
     kubectl delete kustomization identity-api -n evolution
     Write-Output "Destroying Uploader kustomization"
@@ -34,3 +36,4 @@ elseif ($env -eq "flux") {
     Write-Output "Destroying dapr"
     dapr uninstall -k
 }
+Write-Output "Successfully removed resouces" -Foregroundcolor Green

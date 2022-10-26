@@ -1,9 +1,13 @@
 #? The script tries to deploy the resource to K8, via kubectl or flux.
 #! Mandatory Parameters : $mode, $env
-#*----------------------------------------
-#? Example ./setup.ps1 -mode local -env dev
-#*----------------------------------------
-param( [Parameter(Mandatory = $true)] $mode = "local", [Parameter(Mandatory = $true)] $env = "dev")
+#*--------------------------------------------------------------------------------
+#? Example 
+   #! Just pre configure the Cluster with few prerequistes like, prom-op,redis
+   #? ./deploy.ps1 -mode local -env dev -preonly true
+   #! Deploys the complete infra and services
+   #? ./deploy.ps1 -mode local -env dev -preonly false 
+#*--------------------------------------------------------------------------------
+param( [Parameter(Mandatory = $true)] $mode = "local", [Parameter(Mandatory = $true)] $env = "dev", $preonly = "false", $skippre = "false")
 
 #& Create namespace 'evolution' and adding secrets
 $namespace = kubectl get ns evolution --output=json | ConvertFrom-Json
@@ -13,8 +17,6 @@ if ($namespace.metadata.name -ne "evolution") {
 else {
     Write-Output "evolution namespace already exists"
 }
-
-
 
 #& Setting Up Secrets from env 
 
@@ -48,19 +50,21 @@ if (!$relases.Contains('prometheus')) {
     kubectl create ns monitoring
     helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
     #helm search repo prometheus-community
-    helm install prometheus prometheus-community/prometheus -n monitoring
-    kubectl patch ds prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]' -n monitoring
+    helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring
+    kubectl patch ds prometheus-prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]' -n monitoring
+    #! grafana pass : prom-operator, user: admin
+
 }
-Start-sleep -s 2
+Start-sleep -s 1
 
 #& Enable dapr
 $namespace = kubectl get ns dapr-system --output=json | ConvertFrom-Json
 if ($namespace.metadata.name -ne "dapr-system") {
     dapr init -k
-    Start-sleep -s 2
+    Start-sleep -s 1
 }
 else {
-    Write-Output "dapr-system already ready"
+    Write-Host "dapr-system already ready"  -Foregroundcolor Green
 }
 
 
@@ -74,8 +78,13 @@ if (!$relases.Contains('vault')) {
     helm repo add hashicorp https://helm.releases.hashicorp.com
     helm install vault hashicorp/vault
 }
-Start-sleep -s 2
+Start-sleep -s 1
 
+#& If Pre only , EXIT from here.
+if ($preonly -eq "true") {
+    Write-Output "Cluster Pre configuration done. Deploy infra and services manually."
+    exit 1
+}
 
 #? Cheking mode to deploy, If local would deploy directly
 If ($mode -eq "local") {   
@@ -97,7 +106,7 @@ If ($mode -eq "local") {
         Start-sleep -s 2
     }
     else {
-        Write-Output "Identity Api already deployed"
+        Write-Host "Identity Api already running"  -Foregroundcolor Green
     }
         
     #& Setup Processor API
@@ -107,7 +116,7 @@ If ($mode -eq "local") {
         Start-sleep -s 2
     }
     else {
-        Write-Output "Processor Api already deployed"
+        Write-Host "Processor Api already running" -Foregroundcolor Green
     }
     
     #& Setup Uploader API
@@ -116,8 +125,10 @@ If ($mode -eq "local") {
         kubectl apply -k .\Evolution.Uploader\deploy\k8s\uploader\overlays\$env
     }
     else {
-        Write-Output "Uploader Api already deployed"
+        Write-Host "Uploader Api already running" -Foregroundcolor Green
     }
+
+    Write-Host "Successfully deployed all resources in $env" -Foregroundcolor Green
 }
 elseif ($mode -eq "flux") {
 
