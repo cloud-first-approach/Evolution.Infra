@@ -14,6 +14,8 @@ else {
     Write-Output "evolution namespace already exists"
 }
 
+
+
 #& Setting Up Secrets from env 
 
 if ($null -eq $env:AWS_ACCESS_KEY -and $null -eq $env:AWS_SECRET_KEY ) {
@@ -29,8 +31,27 @@ else {
     kubectl create secret generic secret --from-literal=AWS_SECRET_KEY=$env:AWS_SECRET_KEY -n evolution
 }
 
+$namespace = kubectl get ns dapr-system --output=json | ConvertFrom-Json
+if ($namespace.metadata.name -ne "dapr-system") {
+    dapr init -k
+    Start-sleep -s 2
+}
+else {
+    Write-Output "dapr-system already ready"
+}
 
 
+#&  Setup Prometheus Operator
+$helm = helm list --output=json | ConvertFrom-Json 
+$relases = @($helm.name)
+if (!$relases.Contains('prometheus')) {
+    kubectl create ns monitoring
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    #helm search repo prometheus-community
+    helm install prometheus prometheus-community/prometheus -n monitoring
+    kubectl patch ds prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]' -n monitoring
+}
+Start-sleep -s 2
 
 #& Enable dapr
 $namespace = kubectl get ns dapr-system --output=json | ConvertFrom-Json
