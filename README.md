@@ -42,11 +42,10 @@ A developer platform for building all your apps!
 # Project Overview
 
 The setup requires a secret file. private.secrets handy
-`OR`
+## OR
 Environment variables are required. `AWS_ACCESS_KEY` or `AWS_SECRET_KEY` should be set correctly for s3 access
 
 The project tries to build a simple youtube backend for practice of Dev-Ops. Focusing both on Dev and Ops of a bit.
-
 
 
 The Project has few basic components
