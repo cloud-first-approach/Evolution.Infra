@@ -1,15 +1,13 @@
 # Evolution
-Cloud first approach for building applications
+Cloud first approach for building applications and deploying it with minimal efforts.
 
+### Few Building Blocks
+- `IAC`
+- `Cloud Native` using tools from CNCF
+- `Security`
+- `Best Practices`
 
 ![alt text](https://github.com/cloud-first-approach/Evolution.infra/blob/main/docs/images/frontpage.png)
-
-# Role and Responsibility of Dev Ops
-
-We would be taking a look at deploying the code to multiple infra.
-
-
-![alt text](https://github.com/cloud-first-approach/Evolution.infra/blob/main/docs/images/Ingraphics-devops.png)
 
 
 # Features and Scope of Project
@@ -40,18 +38,16 @@ A developer platform for building all your apps!
 - [Fluxcd](https://fluxcd.io/) - Flux is a set of continuous and progressive delivery solutions for Kubernetes that are open and extensible. 
 - [Flagger](https://www.weave.works/oss/flagger/) - Automate and manage canary and other advanced deployments with Istio, Linkerd, AWS App Mesh or NGINX for traffic shifting. Integrated Prometheus metrics control canary deployment success or failure.
 - [ArgoCD](https://argoproj.github.io/cd/) - Declarative continuous delivery with a fully-loaded UI. 
-
+- [Powershell](https://learn.microsoft.com/en-us/powershell/) - PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework. PowerShell runs on Windows, Linux, and macOS.
 # Project Overview
 
 The setup requires a secret file. private.secrets handy
+`OR`
+Environment variables are required. `AWS_ACCESS_KEY` or `AWS_SECRET_KEY` should be set correctly for s3 access
 
 The project tries to build a simple youtube backend for practice of Dev-Ops. Focusing both on Dev and Ops of a bit.
 
-Few Building Blocks
-- `IAC`
-- `Cloud Native` using tools from CNCF
-- `Security`
-- Other `Best Practices`
+
 
 The Project has few basic components
 
@@ -59,14 +55,6 @@ The Project has few basic components
 - `Processor Api` to process Videos and store
 - `Streaming Api` to Stream Videos Directly and stored videos.
 - `Client` on Blazor
-
-
-Prerequisites
-
-- `Kubernetes`
-- `kubectl`
-- `docker`
-- `dapr` cli
 
 
 # Deployment
