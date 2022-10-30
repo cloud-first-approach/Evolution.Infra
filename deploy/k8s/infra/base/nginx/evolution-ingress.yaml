@@ -2,10 +2,21 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: evolution-ingress
-  namespace: evolution
+  namespace: ingress-nginx
   annotations:
     nginx.org/mergeable-ingress-type: "master"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    
 spec:
-  ingressClassName: nginx
   rules:
   - host: evolution.k8
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-ingress-dapr
+            port:
+              number: 80

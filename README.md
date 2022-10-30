@@ -62,3 +62,15 @@ The Project has few basic components
 
 
 
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout tls.key -out tls.crt \
+    -subj "/CN=evolution.k8 /O=Evolution"
+
+kubectl create secret tls tls-secret --key tls.key --cert tls.cert -n ingress-nginx
+
+kubectl create secret tls tls-secret \
+    --key tls.key --cert tls.cert -n ingress-nginx
+
+kubectl get service --selector=app=ingress-nginx,component=controller \
+    -o jsonpath='{.items[*].status.loadBalancer.ingress[0].ip}' \
+    -n ingress-nginx

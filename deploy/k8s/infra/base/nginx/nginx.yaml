@@ -431,9 +431,18 @@ spec:
   template:
     metadata:
       labels:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "nginx-ingress"
+        dapr.io/app-port: "80"
         app.kubernetes.io/component: controller
         app.kubernetes.io/instance: ingress-nginx
         app.kubernetes.io/name: ingress-nginx
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "nginx-ingress"
+        dapr.io/app-port: "80"
+        dapr.io/sidecar-listen-addresses: 0.0.0.0
+        dapr.io/log-level: "debug"
     spec:
       containers:
       - args:
