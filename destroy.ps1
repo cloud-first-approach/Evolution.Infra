@@ -17,6 +17,13 @@ If ($mode -eq "local") {
     helm uninstall redis 
     Write-Output "removing prometheus" 
     helm uninstall prometheus -n monitoring
+    #others ns clearance
+    kubectl delete  ns monitoring 
+    kubectl delete  ns dapr-system 
+    kubectl delete  ns evolution 
+
+    kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
+
 }
 elseif ($mode -eq "flux") {
     Write-Output "Destroying Identity kustomization"
@@ -36,4 +43,4 @@ elseif ($mode -eq "flux") {
     Write-Output "Destroying dapr"
     dapr uninstall -k
 }
-Write-Output "Successfully removed resouces" -Foregroundcolor Green
+Write-Host "Successfully removed all resources" -Foregroundcolor Green
