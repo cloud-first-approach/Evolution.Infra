@@ -15,3 +15,5 @@ resources:
   - nginx/evolution-ingress.yaml
   - prometheus/sa.yaml
   - prometheus/prometheus.yaml
+  - dashboard/service-account.yaml
+  - dashboard/role-binding.yaml
