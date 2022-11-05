@@ -1,46 +1,63 @@
 
 param( [Parameter(Mandatory = $true)] $mode, [Parameter(Mandatory = $true)] $env)
+
+function Error {
+    param (
+        $msg
+    )
+    Write-Host "$msg" -Foregroundcolor Red
+}
+
 If ($mode -eq "local") {
-    Write-Output "Destroying Processor"
+    Error -msg "Destroying Processor" 
     kubectl delete -k .\Evolution.Processor\deploy\k8s\processor\overlays\$env
-    Write-Output "Destroying Uploader"
+    Error -msg "Destroying Uploader" 
     kubectl delete -k .\Evolution.Uploader\deploy\k8s\uploader\overlays\$env
-    Write-Output "Destroying Identity"
+    Error -msg "Destroying Identity"
     kubectl delete -k .\Evolution.Identity\deploy\k8s\identity\overlays\$env
-    Write-Output "Destroying infra"
+    Error -msg "Destroying infra"
     kubectl delete -k .\Evolution.infra\deploy\k8s\infra\overlays\$env
-    Write-Output "Destroying vault"
+    Error -msg "Removing vault"
     helm uninstall vault
-    Write-Output "removing dapr from k8"
+    Error -msg "removing dapr from k8" 
     dapr uninstall -k
-    Write-Output "removing redis"
+    Write-Host "removing redis" -Foregroundcolor Red
     helm uninstall redis 
-    Write-Output "removing prometheus" 
+    Write-Host "removing prometheus" -Foregroundcolor Red
     helm uninstall prometheus -n monitoring
+    Write-Host "removing dahboard" -Foregroundcolor Red
+    kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
+    Write-Host "removing zipkin" -Foregroundcolor Red
+    kubectl delete deployment zipkin -n evolution
+
     #others ns clearance
     kubectl delete  ns monitoring 
     kubectl delete  ns dapr-system 
     kubectl delete  ns evolution 
+    kubectl delete  ns kubernetes-dashboard 
 
-    kubectl delete -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
-
+    Write-Host "removing linkerd" -Foregroundcolor Red
+    helm uninstall linkerd-control-plane -n linkerd
+    
+    Write-Host "removing linkerd crds" -Foregroundcolor Red
+    helm uninstall linkerd-crds -n linkerd
 }
 elseif ($mode -eq "flux") {
-    Write-Output "Destroying Identity kustomization"
+    Write-Host "Destroying Identity kustomization"
     kubectl delete kustomization identity-api -n evolution
-    Write-Output "Destroying Uploader kustomization"
+    Write-Host "Destroying Uploader kustomization"
     kubectl delete kustomization uploader-api -n evolution
-    Write-Output "Destroying Processor kustomization"
+    Write-Host "Destroying Processor kustomization"
     kubectl delete kustomization processor-api -n evolution
-    Write-Output "Destroying infra kustomization"
+    Write-Host "Destroying infra kustomization"
     kubectl delete kustomization infra -n evolution
-    Write-Output "Destroying flux-system"
+    Write-Host "Destroying flux-system"
     flux uninstall flux-system
-    Write-Output "Destroying redis"
+    Write-Host "Destroying redis"
     helm uninstall redis
-    Write-Output "Destroying vault"
+    Write-Host "Destroying vault"
     helm uninstall vault
-    Write-Output "Destroying dapr"
+    Write-Host "Destroying dapr"
     dapr uninstall -k
 }
 Write-Host "Successfully removed all resources" -Foregroundcolor Green

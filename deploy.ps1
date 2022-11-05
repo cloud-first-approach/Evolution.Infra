@@ -3,9 +3,9 @@
 #*--------------------------------------------------------------------------------
 #? Example 
    #! Just pre configure the Cluster with few prerequistes like, prom-op,redis
-   #? ./deploy.ps1 -mode local -env dev -preSetup true deploy true
+   #? ./deploy.ps1 -mode local -env dev -preSetup true -deploy true
    #! Deploys the complete infra and services
-   #? ./deploy.ps1 -mode local -env dev -preSetup false deploy true
+   #? ./deploy.ps1 -mode local -env dev -preSetup false -deploy true
 #*--------------------------------------------------------------------------------
 param( [Parameter(Mandatory = $true)] $mode = "local", [Parameter(Mandatory = $true)] $env = "dev", $preSetup = "false", $deploy = "false")
 
@@ -17,7 +17,7 @@ function CreateNamespaceInK8 {
     )
     $namespace = kubectl get ns $name --output=json | ConvertFrom-Json
     if ($namespace.metadata.name -ne $name) {
-        kubectl create ns evolution
+        kubectl create ns $name
     }
     else {
         Write-Output "$name namespace already exists"
@@ -31,10 +31,16 @@ function InstallDaprInK8 {
 #-------- Functions-----------------------------
 
 
+
 ##  ----------------- > Pre Configure K8 Cluster with Dapr, Redis, Secrets, Vault and Prometheus <---------------
 #& Setup
 if ($preSetup -eq "true") {
     #& Create namespace 'evolution' and adding secrets
+    CreateNamespaceInK8 -name evolution
+
+    #& Enable dapr
+    InstallDaprInK8
+
     $namespace = kubectl get ns kubernetes-dashboard --output=json | ConvertFrom-Json 
     if ($namespace.metadata.name -ne "kubernetes-dashboard") {
         kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
@@ -42,14 +48,13 @@ if ($preSetup -eq "true") {
     else {
         Write-Output "kubernetes-dashboard already exists. Doing Nothing !!" -Foregroundcolor Red
     }
-   
+    
+    #& Create deployment 'evolution'
     kubectl create deployment zipkin --image openzipkin/zipkin -n evolution
 
+    
+   
 
-    CreateNamespaceInK8 -name evolution
-
-    #& Enable dapr
-    InstallDaprInK8
 
 
     #& Setting Up Secrets from env 
@@ -86,6 +91,22 @@ if ($preSetup -eq "true") {
         kubectl patch ds prometheus-prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]' -n monitoring
         #! grafana pass : prom-operator, user: admin
     }
+    if (!$relases.Contains('linkerd')) {
+        helm repo add linkerd https://helm.linkerd.io/stable
+        
+        helm install linkerd-crds linkerd/linkerd-crds -n linkerd --create-namespace 
+
+        #~ STEP to GENERATE CERT FOR LINKERD
+        #* **** curl.exe -LO https://dl.step.sm/gh-release/cli/docs-cli-install/v0.21.0/step_windows_0.21.0_amd64.zip
+        #* *** Download Step and add bin/step.exe to path. Then, run below connands
+        #* step certificate create root.linkerd.cluster.local ca.crt ca.key --profile root-ca --no-password --insecure
+        #* step certificate create identity.linkerd.cluster.local issuer.crt issuer.key --profile intermediate-ca --not-after 8760h --no-password --insecure --ca ca.crt --ca-key ca.key
+
+
+        helm install linkerd-control-plane -n linkerd --set-file identityTrustAnchorsPEM=ca.crt --set-file identity.issuer.tls.crtPEM=issuer.crt --set-file identity.issuer.tls.keyPEM=issuer.key linkerd/linkerd-control-plane
+
+    }
+   
     Start-sleep -s 2
 
     #& If Pre only , EXIT from here.
@@ -156,3 +177,9 @@ if($deploy -eq "true"){
         Write-Output "Invalid 'mode' selected" 
     }
 }
+
+
+# $helm | Where-Object -FilterScript { $Output.name -match 'evolution' }  |
+#   ForEach-Object -Process { 
+#     echo $Output.name
+#   }
