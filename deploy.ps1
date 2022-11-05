@@ -35,8 +35,16 @@ function InstallDaprInK8 {
 #& Setup
 if ($preSetup -eq "true") {
     #& Create namespace 'evolution' and adding secrets
+    $namespace = kubectl get ns kubernetes-dashboard --output=json | ConvertFrom-Json 
+    if ($namespace.metadata.name -ne "kubernetes-dashboard") {
+        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
+    }
+    else {
+        Write-Output "kubernetes-dashboard already exists. Doing Nothing !!" -Foregroundcolor Red
+    }
+   
+    kubectl create deployment zipkin --image openzipkin/zipkin -n evolution
 
-    kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.6.1/aio/deploy/recommended.yaml
 
     CreateNamespaceInK8 -name evolution
 
@@ -148,4 +156,3 @@ if($deploy -eq "true"){
         Write-Output "Invalid 'mode' selected" 
     }
 }
-
