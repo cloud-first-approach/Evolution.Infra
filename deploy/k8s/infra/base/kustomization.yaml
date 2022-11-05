@@ -17,3 +17,4 @@ resources:
   - prometheus/prometheus.yaml
   - dashboard/service-account.yaml
   - dashboard/role-binding.yaml
+  - dapr/tracing.yaml
