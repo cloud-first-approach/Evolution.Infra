@@ -52,10 +52,6 @@ if ($preSetup -eq "true") {
     #& Create deployment 'evolution'
     kubectl create deployment zipkin --image openzipkin/zipkin -n evolution
 
-    
-   
-
-
 
     #& Setting Up Secrets from env 
 
@@ -79,11 +75,15 @@ if ($preSetup -eq "true") {
     if (!$relases.Contains('redis')) {
         helm install redis .\Evolution.infra\deploy\k8s\infra\base\redis\charts\redis\ 
     }
-    if (!$relases.Contains('vault')) {
+    if (!$relases.Contains('vault') -and 1 -eq 2) {
         helm repo add hashicorp https://helm.releases.hashicorp.com
         helm install vault hashicorp/vault
     }
-    if (!$relases.Contains('prometheus')) {
+    if (!$relases.Contains('vault') -and 1 -eq 2) {
+        kubectl apply -k github.com/fluxcd/flagger//kustomize/linkerd
+        kubectl apply -k https://github.com/fluxcd/flagger//kustomize/tester?ref=main
+    }
+    if (!$relases.Contains('prometheus') -And 1 -eq 2) {
         kubectl create ns monitoring
         helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
         #helm search repo prometheus-community
@@ -91,7 +91,7 @@ if ($preSetup -eq "true") {
         kubectl patch ds prometheus-prometheus-node-exporter --type "json" -p '[{"op": "remove", "path" : "/spec/template/spec/containers/0/volumeMounts/2/mountPropagation"}]' -n monitoring
         #! grafana pass : prom-operator, user: admin
     }
-    if (!$relases.Contains('linkerd')) {
+    if (!$relases.Contains('linkerd') -And 1 -eq 2) {
         helm repo add linkerd https://helm.linkerd.io/stable
         
         helm install linkerd-crds linkerd/linkerd-crds -n linkerd --create-namespace 
@@ -101,7 +101,6 @@ if ($preSetup -eq "true") {
         #* *** Download Step and add bin/step.exe to path. Then, run below connands
         #* step certificate create root.linkerd.cluster.local ca.crt ca.key --profile root-ca --no-password --insecure
         #* step certificate create identity.linkerd.cluster.local issuer.crt issuer.key --profile intermediate-ca --not-after 8760h --no-password --insecure --ca ca.crt --ca-key ca.key
-
 
         helm install linkerd-control-plane -n linkerd --set-file identityTrustAnchorsPEM=ca.crt --set-file identity.issuer.tls.crtPEM=issuer.crt --set-file identity.issuer.tls.keyPEM=issuer.key linkerd/linkerd-control-plane
 
@@ -183,3 +182,20 @@ if($deploy -eq "true"){
 #   ForEach-Object -Process { 
 #     echo $Output.name
 #   }
+
+
+
+# export PATH=$PATH:/home/sourabh/.linkerd2/bin
+# linkerd install --set proxyInit.runAsRoot=true | kubectl apply -f -
+# linkerd viz install | kubectl apply -f -
+# linkerd viz dashboard --port 3333
+# dapr dashboard -k
+# kubectl proxy
+# kubectl apply -k github.com/fluxcd/flagger//kustomize/linkerd
+
+# kubectl create ns test (Load TEsted for Hey)
+# kubectl apply -k https://github.com/fluxcd/flagger//kustomize/tester?ref=main
+# kubectl exec -t -i flagger-loadtester-7b9bbcb79-h45j8 -n test bash
+# hey -z 1m -q 100 -c 5 http://identity-api-deployment.evolution:80/healthz
+
+#linkerd viz install | kubectl delete -f -
