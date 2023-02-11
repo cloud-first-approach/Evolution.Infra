@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: evolution
 resources:
   - "infra.yaml"
-  #- "apps.yaml"
+  - "apps.yaml"
 
 
