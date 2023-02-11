@@ -16,8 +16,8 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: dapr/dapr
-      version: '1.9'
+      chart: dapr
+      version: '1.9.6'
       sourceRef:
         kind: HelmRepository
         name: dapr
