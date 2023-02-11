@@ -9,13 +9,10 @@ resources:
   - mssql/local-pvc.yaml
   - mssql/mssql-server.yaml
   - nginx/nginx.yaml
-  #- dapr/appsettings-configstore-component.yaml
-  #- dapr/login-statestore-component.yaml
-  #- dapr/components/pubsub.yaml
-  #- flagger/flagger_crd.yaml
   - nginx/evolution-ingress.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
-  #- dapr/tracing.yaml
+  - dapr-setup.yaml
+  - flagger-setup.yaml
