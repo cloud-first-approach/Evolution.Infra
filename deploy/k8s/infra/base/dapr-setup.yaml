@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: dapr
-  namespace: dapr-system
+  namespace: flux-system
 spec:
   interval: 1m
   url: https://dapr.github.io/helm-charts/
@@ -21,5 +21,5 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: dapr
-        namespace: dapr-system
+        namespace: flux-system
       interval: 1m
