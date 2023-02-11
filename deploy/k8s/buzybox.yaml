@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox1
+  namespace: evolution
+  labels:
+    app: busybox1
+spec:
+  volumes:
+    - name: buzy-store
+      persistentVolumeClaim:
+        claimName: file-pv-claim
+  containers:
+  - image: busybox
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: busybox
+  restartPolicy: Always
