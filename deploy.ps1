@@ -171,8 +171,7 @@ if($deploy -eq "true"){
         $GITHUB_USER = 'cloud-first-approach'
         flux bootstrap github --owner=$GITHUB_USER --repository=Evolution.infra --branch=main --path=./deploy/k8s/flux/clusters/$env --personal
 
-        flux bootstrap github --owner='cloud-first-approach' --repository=Evolution.infra --branch=main --path=./deploy/k8s/flux/clusters/dev --personal
-
+        flux bootstrap github --owner='cloud-first-approach' --repository=Evolution.Infra --branch=main --path=./deploy/k8s/flux/clusters/dev --personal
 
         flux bootstrap github --owner=$GITHUB_USER --repository=Evolution.Baseline --branch=main --path=./k8s/clusters/dev --personal
 
