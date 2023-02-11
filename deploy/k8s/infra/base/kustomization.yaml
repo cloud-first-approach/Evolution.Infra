@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - configmap.yaml
-  #- rabbitmq/rabbitmq-server.yaml
-  #- mssql/msql-secret.yaml
-  #- mssql/local-pvc.yaml
-  #- mssql/mssql-server.yaml
+  - rabbitmq/rabbitmq-server.yaml
+  - mssql/msql-secret.yaml
+  - mssql/local-pvc.yaml
+  - mssql/mssql-server.yaml
   #- nginx/nginx.yaml
   #- dapr/appsettings-configstore-component.yaml
   #- dapr/login-statestore-component.yaml
