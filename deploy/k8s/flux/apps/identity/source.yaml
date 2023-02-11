@@ -1,13 +1,4 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: GitRepository
+kind: Namespace
+apiVersion: v1
 metadata:
-  name: identity-api
-  namespace: flux-system
-spec:
-  interval: 1m0s
-  ref:
-    branch: main
-  secretRef:
-    name: flux-system
-  url: ssh://git@github.com/cloud-first-approach/Evolution.Identity
-
+  name: evolutions
