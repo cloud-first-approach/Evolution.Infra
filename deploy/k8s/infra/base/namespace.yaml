@@ -7,8 +7,3 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: monitoring
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: evolution
