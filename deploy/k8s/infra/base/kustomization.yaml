@@ -16,6 +16,7 @@ resources:
   #- dashboard/role-binding.yaml
   #- dapr-setup.yaml
   - flagger-setup.yaml
+  - osm-setup.yaml
   - prom-setup.yaml
   - linkerd-setup.yaml
   - dapr/tracing.yaml
