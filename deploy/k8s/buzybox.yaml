@@ -9,7 +9,7 @@ spec:
   volumes:
     - name: buzy-store
       persistentVolumeClaim:
-        claimName: file-pv-claim
+        claimName: imagestoreclaim
   containers:
   - image: busybox
     command:
