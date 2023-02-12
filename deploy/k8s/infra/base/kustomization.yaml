@@ -4,19 +4,19 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - configmap.yaml
-  - rabbitmq/rabbitmq-server.yaml
+  #- rabbitmq/rabbitmq-server.yaml
   - mssql/msql-secret.yaml
   - mssql/local-pvc.yaml
   - mssql/mssql-server.yaml
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
+  #- prom-setup.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
-  #- dapr-setup.yaml
-  - flagger-setup.yaml
-  - osm-setup.yaml
-  - prom-setup.yaml
-  - linkerd-setup.yaml
-  - dapr/tracing.yaml
+  #- dapr-setup.yaml #install working
+  #- flagger-setup.yaml #install working
+  #- osm-setup.yaml #install working
+  #- linkerd-setup.yaml #install not working
+  #- dapr/tracing.yaml
