@@ -14,7 +14,7 @@ resources:
   #- prometheus/prometheus.yaml
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
-  - dapr-setup.yaml
+  #- dapr-setup.yaml
   - flagger-setup.yaml
   - prom-setup.yaml
   - linkerd-setup.yaml
