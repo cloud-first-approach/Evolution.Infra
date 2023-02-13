@@ -10,6 +10,7 @@ resources:
   - mssql/mssql-server.yaml
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
+  - istio-setup.yaml
   #- prom-setup.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
