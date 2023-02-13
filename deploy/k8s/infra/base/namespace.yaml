@@ -2,10 +2,11 @@ kind: Namespace
 apiVersion: v1
 metadata:
   name: evolution
-  labels:
-    openservicemesh.io/monitored-by: osm
-  annotations:
-    'openservicemesh.io/sidecar-injection': 'enabled'
+  # **** Enable OSM at namespace level  
+  # labels:
+  #   openservicemesh.io/monitored-by: osm
+  # annotations:
+  #   'openservicemesh.io/sidecar-injection': 'enabled'
 ---
 kind: Namespace
 apiVersion: v1
