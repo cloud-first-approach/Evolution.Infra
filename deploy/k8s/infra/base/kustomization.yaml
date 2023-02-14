@@ -2,24 +2,31 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - namespace.yaml
-  - configmap.yaml
-  #- rabbitmq/rabbitmq-server.yaml
-  - rabbitmq-setup.yaml
+  - pre-setup/namespace.yaml
+  - pre-setup/configmap.yaml
+#*** mssql
   - mssql/msql-secret.yaml
   - mssql/local-pvc.yaml
   - mssql/mssql-server.yaml
+#*** nginx  
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
-  - kuma-setup.yaml
-  #- istio-setup.yaml
-  #- prom-setup.yaml
+#*** Prometheus
+  #- prometheus-helm-setup.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
+#*** K8s Dashboard
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
-  #- dapr-setup.yaml #install working
-  #- flagger-setup.yaml #install working
-  #- osm-setup.yaml #install working
-  #- linkerd-setup.yaml #install not working
+#*** Service Mesh
+  #- service-mesh/kuma-setup.yaml
+  #- service-mesh/istio-setup.yaml
+  #- service-mesh/dapr-setup.yaml #install working
+  #- service-mesh/flagger-setup.yaml #install working
+  #- service-mesh/osm-setup.yaml #install working
+  #- service-mesh/linkerd-setup.yaml #install not working
+#*** Service Mesh
+  #- rabbitmq/rabbitmq-server.yaml
+  #- rabbitmq-setup.yaml
+#*** Dapr related
   #- dapr/tracing.yaml
