@@ -7,6 +7,7 @@ metadata:
     openservicemesh.io/monitored-by: osm
   annotations:
     'openservicemesh.io/sidecar-injection': 'enabled'
+    'openservicemesh.io/metrics': 'enabled'
 ---
 kind: Namespace
 apiVersion: v1

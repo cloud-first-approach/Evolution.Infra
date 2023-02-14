@@ -10,6 +10,7 @@ resources:
   - mssql/mssql-server.yaml
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
+  - kuma-setup.yaml
   #- istio-setup.yaml
   #- prom-setup.yaml
   #- prometheus/sa.yaml
@@ -18,6 +19,6 @@ resources:
   #- dashboard/role-binding.yaml
   #- dapr-setup.yaml #install working
   #- flagger-setup.yaml #install working
-  - osm-setup.yaml #install working
+  #- osm-setup.yaml #install working
   #- linkerd-setup.yaml #install not working
   #- dapr/tracing.yaml
