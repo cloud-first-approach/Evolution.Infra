@@ -5,6 +5,7 @@ metadata:
   # **** Enable OSM at namespace level  
   labels:
     openservicemesh.io/monitored-by: osm
+    kuma.io/sidecar-injection: enabled
   annotations:
     'openservicemesh.io/sidecar-injection': 'enabled'
     'openservicemesh.io/metrics': 'enabled'
