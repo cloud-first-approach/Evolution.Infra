@@ -12,7 +12,7 @@ resources:
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
 #*** Prometheus
-  #- prometheus-helm-setup.yaml
+  - prometheus/prometheus-helm-setup.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
 #*** K8s Dashboard
@@ -21,12 +21,13 @@ resources:
 #*** Service Mesh
   #- service-mesh/kuma-setup.yaml
   #- service-mesh/istio-setup.yaml
-  #- service-mesh/dapr-setup.yaml #install working
-  #- service-mesh/flagger-setup.yaml #install working
   #- service-mesh/osm-setup.yaml #install working
   #- service-mesh/linkerd-setup.yaml #install not working
 #*** Service Mesh
   #- rabbitmq/rabbitmq-server.yaml
   #- rabbitmq-setup.yaml
-#*** Dapr related
+#*** Dapr 
+  #- dapr/dapr-setup.yaml #install working
   #- dapr/tracing.yaml
+#*** Flagger
+  #- flagger/flagger-setup.yaml #install working
