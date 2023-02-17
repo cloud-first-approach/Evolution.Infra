@@ -11,10 +11,13 @@ resources:
 #*** nginx  
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
-#*** Prometheus
+#*** Prometheus Standalone
+  - prometheus/sa.yaml
+  - prometheus/clusterrole.yaml
   - prometheus/operator.yaml
-  #- prometheus/sa.yaml
-  #- prometheus/prometheus.yaml
+  - prometheus/prometheus.yaml
+  - prometheus/prometheus-svc.yaml
+  - prometheus/servicemonitor.yaml
 #*** K8s Dashboard
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
