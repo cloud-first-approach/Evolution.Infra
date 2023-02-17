@@ -18,6 +18,8 @@ resources:
   - prometheus/prometheus.yaml
   - prometheus/prometheus-svc.yaml
   - prometheus/servicemonitor.yaml
+#*** Grafana
+  - grafana/grafana.yaml
 #*** K8s Dashboard
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
