@@ -12,7 +12,7 @@ resources:
   - nginx/nginx.yaml
   - nginx/evolution-ingress.yaml
 #*** Prometheus
-  - prometheus/prometheus-helm-setup.yaml
+  - prometheus/operator.yaml
   #- prometheus/sa.yaml
   #- prometheus/prometheus.yaml
 #*** K8s Dashboard
