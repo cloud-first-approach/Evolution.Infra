@@ -9,7 +9,7 @@ spec:
   image: quay.io/prometheus/prometheus:v2.22.1
   nodeSelector:
     kubernetes.io/os: linux
-  replicas: 2
+  replicas: 1
   resources:
     requests:
       memory: 400Mi
