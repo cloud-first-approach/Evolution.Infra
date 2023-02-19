@@ -18,6 +18,8 @@ resources:
   - prometheus/prometheus.yaml
   - prometheus/prometheus-svc.yaml
   - prometheus/servicemonitor.yaml
+  - prometheus/kube-state-metrics
+  - prometheus/additional-scrape-configs.yaml
 #*** Grafana
   - grafana/grafana.yaml
 #*** K8s Dashboard

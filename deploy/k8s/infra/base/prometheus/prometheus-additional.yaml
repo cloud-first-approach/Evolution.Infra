@@ -8,5 +8,11 @@
   - source_labels: [__meta_kubernetes_endpoints_name]
     regex: 'node-exporter'
     action: keep
+- job_name: 'kube-state-metrics'
+  static_configs:
+    - targets: ['kube-state-metrics.kube-system.svc.cluster.local:8080']
+
 
 # kubectl create secret generic additional-scrape-configs --from-file=prometheus-additional.yaml --dry-run=client -oyaml > additional-scrape-configs.yaml
+
+# kubectl apply -f additional-scrape-configs.yaml
