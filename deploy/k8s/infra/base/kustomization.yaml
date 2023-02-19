@@ -36,3 +36,5 @@ resources:
   #- dapr/tracing.yaml
 #*** Flagger
   #- flagger/flagger-setup.yaml #install working
+#*** Zipkin
+  - zipkin/zipkin-helm-setup.yaml
