@@ -18,8 +18,12 @@ resources:
   - prometheus/prometheus.yaml
   - prometheus/prometheus-svc.yaml
   - prometheus/servicemonitor.yaml
-  - prometheus/kube-state-metrics
   - prometheus/additional-scrape-configs.yaml
+  - prometheus/kube-state-metrics/cluster-role-binding.yaml
+  - prometheus/kube-state-metrics/cluster-role.yaml
+  - prometheus/kube-state-metrics/deployment.yaml
+  - prometheus/kube-state-metrics/service-account.yaml
+  - prometheus/kube-state-metrics/service.yaml
 #*** Grafana
   - grafana/grafana.yaml
 #*** K8s Dashboard
