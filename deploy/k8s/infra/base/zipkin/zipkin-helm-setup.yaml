@@ -20,7 +20,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: zipkin
+      chart: openzipkin
       version: '2.23.16'
       sourceRef:
         kind: HelmRepository
