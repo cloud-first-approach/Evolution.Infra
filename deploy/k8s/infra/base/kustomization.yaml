@@ -37,4 +37,4 @@ resources:
 #*** Flagger
   #- flagger/flagger-setup.yaml #install working
 #*** Zipkin
-  - zipkin/zipkin-helm-setup.yaml
+  - open-telemetry/zipkin-helm-setup.yaml
