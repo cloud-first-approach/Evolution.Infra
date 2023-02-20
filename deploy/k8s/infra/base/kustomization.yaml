@@ -9,8 +9,8 @@ resources:
   - mssql/local-pvc.yaml
   - mssql/mssql-server.yaml
 #*** nginx  
-  - nginx/nginx.yaml
-  - nginx/evolution-ingress.yaml
+  #- nginx/nginx.yaml
+  #- nginx/evolution-ingress.yaml
 #*** Prometheus Standalone
   - prometheus/sa.yaml
   - prometheus/clusterrole.yaml
@@ -31,7 +31,7 @@ resources:
   #- dashboard/role-binding.yaml
 #*** Service Mesh
   #- service-mesh/kuma-setup.yaml
-  - service-mesh/istio-setup.yaml
+  #- service-mesh/istio-setup.yaml
   #- service-mesh/osm-setup.yaml #install working
   #- service-mesh/linkerd-setup.yaml #install not working
 #*** Service Mesh
