@@ -4,11 +4,13 @@ metadata:
   name: evolution
   # **** Enable OSM at namespace level  
   labels:
-    openservicemesh.io/monitored-by: osm
-    kuma.io/sidecar-injection: enabled
+    #openservicemesh.io/monitored-by: osm
+    #kuma.io/sidecar-injection: enabled
+    istio-injection: enabled
   annotations:
-    'openservicemesh.io/sidecar-injection': 'enabled'
-    'openservicemesh.io/metrics': 'enabled'
+    istio-injection: enabled
+    #'openservicemesh.io/sidecar-injection': 'enabled'
+    #'openservicemesh.io/metrics': 'enabled'
 ---
 kind: Namespace
 apiVersion: v1

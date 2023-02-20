@@ -30,8 +30,8 @@ resources:
   #- dashboard/service-account.yaml
   #- dashboard/role-binding.yaml
 #*** Service Mesh
-  #- service-mesh/kuma-setup.yaml
-  #- service-mesh/istio-setup.yaml
+  #- service-mesh/kuma-setup.yaml #install not working
+  #- service-mesh/istio-setup.yaml #install not working
   #- service-mesh/osm-setup.yaml #install working
   #- service-mesh/linkerd-setup.yaml #install not working
 #*** Service Mesh

@@ -1,0 +1,4 @@
+namespace: evolution
+resources:
+  - service.yaml
+  - deployment.yaml
