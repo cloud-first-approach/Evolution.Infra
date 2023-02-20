@@ -33,7 +33,7 @@ resources:
   #- service-mesh/kuma-setup.yaml
   #- service-mesh/istio-setup.yaml
   #- service-mesh/osm-setup.yaml #install working
-  - service-mesh/linkerd-setup.yaml #install not working
+  #- service-mesh/linkerd-setup.yaml #install not working
 #*** Service Mesh
   #- rabbitmq/rabbitmq-server.yaml
   #- rabbitmq-setup.yaml
