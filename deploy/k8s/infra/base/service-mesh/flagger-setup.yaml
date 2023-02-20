@@ -4,20 +4,23 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: flagger
-  namespace: flux-system
+  namespace: flagger-system
 spec:
   interval: 5m0s
-  secretRef:
-    name: flux-system
   url: https://flagger.app
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: flagger
-  namespace: flux-system
+  namespace: flagger-system
 spec:
   interval: 1m
+  releaseName: flagger
+  install: # override existing Flagger CRDs
+    crds: CreateReplace
+  upgrade: # update Flagger CRDs
+    crds: CreateReplace
   chart:
     spec:
       chart: flagger
@@ -25,7 +28,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: flagger
-        namespace: flux-system
+        namespace: flagger-system
       interval: 1m
   values:
     replicaCount: 1
