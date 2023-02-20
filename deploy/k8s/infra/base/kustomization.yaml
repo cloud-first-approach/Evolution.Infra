@@ -41,6 +41,6 @@ resources:
   #- dapr/dapr-setup.yaml #install working
   #- dapr/tracing.yaml
 #*** Flagger
-  #- flagger/flagger-setup.yaml #install working
+  - flagger/flagger-setup.yaml #install working
 #*** Zipkin
   - open-telemetry/zipkin-helm-setup.yaml
