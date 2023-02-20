@@ -9,7 +9,7 @@ spec:
   interval: 5m0s
   secretRef:
     name: flux-system
-  url: https://openzipkin.github.io/
+  url: https://openzipkin.github.io/zipkin
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -20,7 +20,7 @@ spec:
   interval: 1m
   chart:
     spec:
-      chart: openzipkin/zipkin
+      chart: zipkin
       version: '0.3.0'
       sourceRef:
         kind: HelmRepository
