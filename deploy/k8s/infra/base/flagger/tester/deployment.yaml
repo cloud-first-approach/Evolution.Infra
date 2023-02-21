@@ -4,6 +4,7 @@ metadata:
   name: flagger-loadtester
   labels:
     app: flagger-loadtester
+  namespace: evolution
 spec:
   selector:
     matchLabels:
