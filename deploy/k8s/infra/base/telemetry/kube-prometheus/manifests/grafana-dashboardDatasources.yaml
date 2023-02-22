@@ -5,7 +5,7 @@ metadata:
     app.kubernetes.io/component: grafana
     app.kubernetes.io/name: grafana
     app.kubernetes.io/part-of: kube-prometheus
-    app.kubernetes.io/version: 9.3.6
+    app.kubernetes.io/version: 8.3.3
   name: grafana-datasources
   namespace: monitoring
 stringData:
@@ -19,7 +19,7 @@ stringData:
                 "name": "prometheus",
                 "orgId": 1,
                 "type": "prometheus",
-                "url": "http://prometheus-operated.monitoring.svc:9090",
+                "url": "http://prometheus-k8s.monitoring.svc:9090",
                 "version": 1
             }
         ]
