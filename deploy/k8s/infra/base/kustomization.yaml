@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - flagger/
   - telemetry/kube-prometheus
+  - istio/
 #*** nginx  
   # - nginx/nginx.yaml
   # - nginx/evolution-ingress.yaml
