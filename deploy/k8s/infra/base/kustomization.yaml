@@ -5,8 +5,8 @@ resources:
   - flagger/
   - telemetry/kube-prometheus
 #*** nginx  
-  - nginx/nginx.yaml
-  - nginx/evolution-ingress.yaml
+  #- nginx/nginx.yaml
+  #- nginx/evolution-ingress.yaml
 #*** Prometheus Standalone
   # - prometheus/sa.yaml
   # - prometheus/clusterrole.yaml
