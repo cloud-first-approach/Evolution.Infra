@@ -43,8 +43,8 @@ spec:
     runAsNonRoot: true
     runAsUser: 1000
   serviceAccountName: prometheus-k8s
-  serviceMonitorNamespaceSelector:
-    matchLabels:
-      kubernetes.io/metadata.name: uploader
+  serviceMonitorNamespaceSelector: {}
+    # matchLabels:
+    #   kubernetes.io/metadata.name: uploader
   serviceMonitorSelector: {}
   version: 2.32.1
