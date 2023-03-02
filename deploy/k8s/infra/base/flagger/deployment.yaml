@@ -30,8 +30,8 @@ spec:
         command:
         - ./flagger
         - -log-level=info
-        #- -metrics-server=http://prometheus-operated.monitoring:9090
-        - -metrics-server=http://prometheus.istio-system:9090
+        - -metrics-server=http://prometheus-operated.monitoring:9090
+        #- -metrics-server=http://prometheus.istio-system:9090 # uncomment for istio/flagger to work
         livenessProbe:
           exec:
             command:
