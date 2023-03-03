@@ -4,6 +4,6 @@ resources:
   - namespace.yaml
   - istio-setup.yaml
   - infra.yaml
-  #- apps.yaml
+  - apps.yaml
 
 
