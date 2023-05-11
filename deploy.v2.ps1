@@ -30,6 +30,11 @@ You can also obtain observability features by installing the viz extension:
   linkerd viz check                         # validate the extension works!
   linkerd viz dashboard                     # launch the dashboard
 
+
+#NGINX INGRESS
+
+kubectl apply -k .\Evolution.infra\deploy\k8s\infra\overlays\dev\
+
 kubectl apply -k .\Evolution.identity\deploy\k8s\identity\overlays\dev\
 
 kubectl apply -k .\Evolution.processor\deploy\k8s\processor\overlays\dev\
