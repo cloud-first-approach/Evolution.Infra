@@ -2,14 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: busybox1
-  namespace: identity
   labels:
     app: busybox1
 spec:
   volumes:
     - name: buzy-store
-      persistentVolumeClaim:
-        claimName: imagestoreclaim
   containers:
   - image: busybox
     # command:
