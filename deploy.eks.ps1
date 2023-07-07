@@ -18,6 +18,11 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set
 # If not using IAM Roles for service account (Not Required)
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=my-cluster -n kube-system
 
+
+## SErvice
+
+kubectl apply -k .\Evolution.infra\deploy\k8s\infra\overlays\dev
+
 kubectl apply -k .\Evolution.uploader\deploy\k8s\uploader\overlays\dev\
 
 kubectl run mycurlpod --image=curlimages/curl
