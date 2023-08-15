@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
   # - flagger/
   # - telemetry/kube-prometheus
-  - kuma/
+  # - kuma/
 #*** nginx  
-  # - nginx/nginx.yaml
+  - nginx/nginx.yaml
   # - nginx/evolution-ingress.yaml
 #*** Prometheus Standalone
   # - prometheus/sa.yaml

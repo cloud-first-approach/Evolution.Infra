@@ -2,7 +2,7 @@
 #^ INFRA SETUP
 
 #? INSTALL PROMETHEUS
-
+kubectl get --raw /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations
 # helm search repo prometheus-community
 kubectl create ns monitoring
 
